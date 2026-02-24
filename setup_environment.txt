@@ -1,0 +1,84 @@
+Download Vscode, MSYS2
+
+Msys2 msys 紫
+pacpacman -Syuu
+pacman -S mingw-w64-x86_64-glew
+pacman -S mingw-w64-x86_64-glfw
+pacman -S mingw-w64-x86_64-freeglut
+pacman -S mingw-w64-x86_64-glm
+
+Msys2 mingw64青
+pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+
+################### GL from MSYS ########################
+右上，設定歯車，C/C++ g++.exe build and debug active file
+#########################################################
+Copy .vscode/tasks.json/args{}:
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-I", "C:\\msys64\\mingw64\\include",
+                "-L", "C:\\msys64\\mingw64\\lib",
+                "-DGLEW_STATIC",
+                "-lglfw3",
+                "-lglew32s",
+                "-lfreeglut",
+                "-lopengl32",
+                "-lgdi32",
+                "-luser32",
+                "-lkernel32"
+            ],
+Copy .vscode/launch.json/include{}:
+      "includePath": ["${workspaceFolder}/**",
+        "C:\\msys64\\mingw64\\include"],
+
+Code Runner: vscode→settings→code runner map→setting.json
+"cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -I C:\\msys64\\mingw64\\include -L C:\\msys64\\mingw64\\lib -DGLEW_STATIC -lglfw3 -lglew32 -lfreeglut -lopengl32 -lgdi32 -luser32 -lkernel32 && ./$fileNameWithoutExt",
+
+################### GL from web download ########################
+上記済んでいたらやらなくてよい．
+GLFW, https://www.glfw.org/download
+GLEW, https://glew.sourceforge.net/
+#################################################################
+Copy .vscode/tasks.json/args{}:
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-I", 
+                "C:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\include",
+                "-I", 
+                "C:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\include",
+                "-L", 
+                "C:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\lib\\Release\\x64",
+                "-L", 
+                "C:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\lib-mingw-w64",
+                //static, winAPI
+                "-DGLEW_STATIC",
+                "-lglfw3",
+                "-lglew32s",
+                "-lopengl32",
+                "-lgdi32",
+                "-luser32",
+                "-lkernel32"
+                //dynamic
+                // "-lglfw3dll",
+                // "-lglew32",
+                // "-lopengl32"
+            ],
+
+Copy .vscode/launch.json/include{}:
+      "includePath": ["${workspaceFolder}/**",
+        "C:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\include",
+        "C:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\include"],
+
+Code Runner: vscode→settings→code runner map→setting.json
+-static
+"cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -I C:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\include -I C:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\include -LC:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\\\lib-mingw-w64 -LC:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\lib\\Release\\x64 -DGLEW_STATIC -lglfw3 -lglew32s -lopengl32 -lgdi32 -luser32 -lkernel32 && ./$fileNameWithoutExt",
+-dynamic
+"cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -I C:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\include -I C:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\include -LC:\\Software\\glfw-3.4.bin.WIN64\\glfw-3.4.bin.WIN64\\\\lib-mingw-w64 -LC:\\Software\\glew-2.3.1-win32\\glew-2.3.1\\lib\\Release\\x64 -lglfw3dll -lglew32 -lopengl32 && ./$fileNameWithoutExt",
