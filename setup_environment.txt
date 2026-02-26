@@ -37,6 +37,8 @@ Copy .vscode/launch.json/include{}:
 
 Code Runner: vscode→settings→code runner map→setting.json
 "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt -I C:\\msys64\\mingw64\\include -L C:\\msys64\\mingw64\\lib -DGLEW_STATIC -lglfw3 -lglew32 -lfreeglut -lopengl32 -lgdi32 -luser32 -lkernel32 && ./$fileNameWithoutExt",
+#glew → glad
+"cpp": "cd $dir && g++ $fileName C:\\Software\\glad\\src\\glad.c -o $fileNameWithoutExt -I C:\\msys64\\mingw64\\include -I C:\\Software\\glad\\include -L C:\\msys64\\mingw64\\lib -DGLEW_STATIC -lglfw3 -lglew32 -lfreeglut -lopengl32 -lgdi32 -luser32 -lkernel32 && ./$fil
 
 ################### GL from web download ########################
 上記済んでいたらやらなくてよい．

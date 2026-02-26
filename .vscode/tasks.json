@@ -12,6 +12,8 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-I",
                 "C:\\msys64\\mingw64\\include",
+                "-I",
+                "C:\\Software\\glad\\include",
                 "-L",
                 "C:\\msys64\\mingw64\\lib",
                 "-DGLEW_STATIC",
